@@ -4074,7 +4074,9 @@ dependencies = [
  "bevy",
  "bevy_aseprite_ultra",
  "bevy_modern_pixel_camera",
+ "image",
  "log",
+ "winit",
 ]
 
 [[package]]

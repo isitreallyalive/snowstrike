@@ -2,21 +2,9 @@ use bevy::prelude::*;
 use bevy_aseprite_ultra::prelude::*;
 use bevy_modern_pixel_camera::prelude::*;
 
-const MAP_WIDTH: u32 = 207;
-const MAP_HEIGHT: u32 = 151;
+mod setup;
 
 fn setup(mut commands: Commands, server: Res<AssetServer>) {
-    commands.spawn((
-        Camera2d,
-        Msaa::Off,
-        PixelZoom::FitSize {
-            width: MAP_WIDTH as i32,
-            height: MAP_HEIGHT as i32,
-        },
-        PixelViewport,
-        WithUiScaling,
-    ));
-
     // draw the map in the background
     commands.spawn((
         AseAnimation {
@@ -54,6 +42,6 @@ fn main() {
             default_plugins
         })
         .add_plugins((PixelCameraPlugin, AsepriteUltraPlugin))
-        .add_systems(Startup, setup)
+        .add_systems(Startup, (setup::icon, setup::camera))
         .run();
 }
