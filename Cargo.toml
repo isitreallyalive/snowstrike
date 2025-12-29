@@ -1,0 +1,10 @@
+[package]
+name = "snowstrike"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+
+[dependencies.bevy]
+version = "0.17.3"
+default-features = false
