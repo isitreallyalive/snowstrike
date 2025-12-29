@@ -1,0 +1,5 @@
+{
+    "files.exclude": {
+        "imported_assets": true
+    }
+}

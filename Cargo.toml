@@ -1,10 +1,40 @@
 [package]
 name = "snowstrike"
+publish = false
 version = "0.0.0"
 edition = "2024"
 
+[features]
+default = ["dev"]
+dev = [
+    # faster incremental builds
+    "bevy/dynamic_linking"
+]
+prod = [
+    # reduce log levels for smaller binary size
+    "log/max_level_debug", "log/release_max_level_warn"
+]
+
 [dependencies]
+log = { version = "0.4.29", optional = true }
 
 [dependencies.bevy]
 version = "0.17.3"
 default-features = false
+
+# build profiles
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.release]
+codegen-units = 1
+lto = "thin"
+
+[profile.wasm-release]
+inherits = "release"
+opt-level = "s"
+strip = "debuginfo"

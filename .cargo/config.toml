@@ -1,0 +1,36 @@
+# adapted from: https://github.com/bevyengine/bevy/blob/c822005cf70c8f76e294c4c53d4edc207a262025/.cargo/config_fast_builds.toml
+
+[target.x86_64-unknown-linux-gnu]
+linker = "clang"
+rustflags = [
+  "-Clink-arg=-fuse-ld=mold",
+
+  "-Zshare-generics=y",
+  "-Zthreads=0",
+]
+rustdocflags = [
+  "-Clink-arg=-fuse-ld=mold",
+]
+
+# use lld on macos
+[target.x86_64-apple-darwin]
+rustflags = [
+  "-Clink-arg=-fuse-ld=/usr/local/opt/llvm/bin/ld64.lld",
+  "-Zshare-generics=y",
+  "-Zthreads=0",
+]
+
+[target.aarch64-apple-darwin]
+rustflags = [
+  "-Clink-arg=-fuse-ld=/opt/homebrew/opt/llvm/bin/ld64.lld",
+  "-Zshare-generics=y",
+  "-Zthreads=0",
+]
+
+# use lld on windows
+[target.x86_64-pc-windows-msvc]
+linker = "rust-lld.exe"
+rustdocflags = ["-Clinker=rust-lld.exe"]
+rustflags = [
+  "-Zthreads=0"
+]
