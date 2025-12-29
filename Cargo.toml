@@ -7,20 +7,41 @@ edition = "2024"
 [features]
 default = ["dev"]
 dev = [
+    # debug tools
+    "bevy/debug",
     # faster incremental builds
-    "bevy/dynamic_linking"
+    "bevy/dynamic_linking",
+    # hot-reload assets
+    "bevy/file_watcher"
 ]
-prod = [
+release = [
     # reduce log levels for smaller binary size
-    "log/max_level_debug", "log/release_max_level_warn"
+    "log/max_level_debug",
+    "log/release_max_level_warn",
+    # asset optimisation
+    "bevy/asset_processor",
+    "bevy_aseprite_ultra/asset_processing"
 ]
 
 [dependencies]
+bevy_aseprite_ultra = "0.7.0"
+bevy_modern_pixel_camera = "0.4.0"
 log = { version = "0.4.29", optional = true }
 
 [dependencies.bevy]
 version = "0.17.3"
 default-features = false
+features = [
+    # graphics
+    "bevy_winit",
+    "bevy_sprite",
+    "x11",
+    "wayland",
+
+    # ui
+    "bevy_ui",
+    "bevy_text"
+]
 
 # build profiles
 

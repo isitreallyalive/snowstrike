@@ -28,7 +28,7 @@ brew install llvm
 
 ### linux
 
-for improved compilation times, we use the [mold]() linker. depending on your distribution, you can install it by running:
+for improved compilation times, we use the [mold](https://github.com/rui314/mold) linker. depending on your distribution, you can install it by running:
 
 ```bash
 sudo apt install mold clang # debian/ubuntu
