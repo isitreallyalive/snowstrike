@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 use bevy_aseprite_ultra::prelude::*;
-use snowstrike::GameState;
+use snowstrike::{GameState, Layers};
 
 pub fn plugin(app: &mut App) {
     app.add_systems(OnEnter(GameState::Menu), draw_title);
@@ -17,5 +17,6 @@ fn draw_title(mut commands: Commands, assets: Res<AssetServer>) {
             margin: UiRect::horizontal(Val::Auto).with_top(Val::Vh(10.)),
             ..default()
         },
+        Layers::UI,
     ));
 }

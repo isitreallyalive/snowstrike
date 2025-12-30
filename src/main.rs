@@ -1,8 +1,9 @@
-use bevy::prelude::*;
+use bevy::{prelude::*, sprite_render::Material2dPlugin};
 use bevy_aseprite_ultra::prelude::*;
 use bevy_modern_pixel_camera::prelude::*;
 use snowstrike::GameState;
 
+mod blur;
 mod menu;
 mod setup;
 
@@ -34,7 +35,10 @@ fn main() {
         })
         .add_plugins((PixelCameraPlugin, AsepriteUltraPlugin))
         .add_systems(Startup, (setup::icon, setup::camera, setup::draw_map))
-        .add_plugins(menu::plugin)
+        .add_plugins((
+            Material2dPlugin::<blur::BlurMaterial>::default(),
+            menu::plugin,
+        ))
         .init_state::<GameState>()
         .run();
 }
