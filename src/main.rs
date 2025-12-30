@@ -3,6 +3,7 @@ use bevy_aseprite_ultra::prelude::*;
 use bevy_modern_pixel_camera::prelude::*;
 use snowstrike::GameState;
 
+mod fps;
 mod blur;
 mod menu;
 mod setup;
@@ -37,6 +38,7 @@ fn main() {
         .add_systems(Startup, (setup::icon, setup::camera, setup::draw_map))
         .add_plugins((
             Material2dPlugin::<blur::BlurMaterial>::default(),
+            fps::plugin,
             menu::plugin,
         ))
         .init_asset::<AudioSource>()
