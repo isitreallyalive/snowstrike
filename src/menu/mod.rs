@@ -8,7 +8,7 @@ mod button;
 
 pub fn plugin(app: &mut App) {
     app.add_systems(OnEnter(GameState::Menu), main_menu)
-        .add_systems(Update, button::animate.run_if(in_state(GameState::Menu)));
+        .add_systems(Update, button::process.run_if(in_state(GameState::Menu)));
 }
 
 fn main_menu(mut commands: Commands, assets: Res<AssetServer>) {

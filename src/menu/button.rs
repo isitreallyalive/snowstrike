@@ -25,7 +25,7 @@ impl From<Handle<Aseprite>> for TextureButton {
     }
 }
 
-pub fn animate(mut query: Query<(&Interaction, &mut AseAnimation), Changed<Interaction>>) {
+pub fn process(mut query: Query<(&Interaction, &mut AseAnimation), Changed<Interaction>>, assets: Res<AssetServer>, mut commands: Commands) {
     for (interaction, mut animation) in query.iter_mut() {
         let tag = match *interaction {
             Interaction::Pressed => "Click",
@@ -33,5 +33,10 @@ pub fn animate(mut query: Query<(&Interaction, &mut AseAnimation), Changed<Inter
             Interaction::None => "Idle",
         };
         animation.animation = Animation::tag(tag);
+
+        if Interaction::Pressed == *interaction {
+            let click = assets.load("sfx/click1.ogg");
+            commands.spawn(AudioPlayer::new(click));
+        }
     }
 }

@@ -7,6 +7,11 @@
 - [newt](https://newty.dev) - programming
 - [sam](https://github.com/samuelhorobin) - concept, artwork
 
+### thanks
+
+<!-- - [slime](https://slimeplease.artstation.com/) - ui font -->
+- [kenney](http://www.kenney.nl/) - button press sfx
+
 ## development
 
 ### windows

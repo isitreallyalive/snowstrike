@@ -40,6 +40,10 @@ features = [
     "x11",
     "wayland",
 
+    # audio
+    "bevy_audio",
+    "vorbis",
+
     # ui
     "bevy_ui",
     "bevy_text",

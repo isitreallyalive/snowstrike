@@ -39,6 +39,7 @@ fn main() {
             Material2dPlugin::<blur::BlurMaterial>::default(),
             menu::plugin,
         ))
+        .init_asset::<AudioSource>()
         .init_state::<GameState>()
         .run();
 }
