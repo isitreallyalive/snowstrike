@@ -42,7 +42,10 @@ features = [
 
     # ui
     "bevy_ui",
-    "bevy_text"
+    "bevy_text",
+
+    # other
+    "bevy_state"
 ]
 
 # build profiles

@@ -1,19 +1,10 @@
 use bevy::prelude::*;
 use bevy_aseprite_ultra::prelude::*;
 use bevy_modern_pixel_camera::prelude::*;
+use snowstrike::GameState;
 
+mod menu;
 mod setup;
-
-fn setup(mut commands: Commands, server: Res<AssetServer>) {
-    // draw the map in the background
-    commands.spawn((
-        AseAnimation {
-            aseprite: server.load("map.aseprite"),
-            ..default()
-        },
-        Sprite::default(),
-    ));
-}
 
 fn main() {
     App::new()
@@ -42,6 +33,8 @@ fn main() {
             default_plugins
         })
         .add_plugins((PixelCameraPlugin, AsepriteUltraPlugin))
-        .add_systems(Startup, (setup::icon, setup::camera))
+        .add_systems(Startup, (setup::icon, setup::camera, setup::draw_map))
+        .add_plugins(menu::plugin)
+        .init_state::<GameState>()
         .run();
 }

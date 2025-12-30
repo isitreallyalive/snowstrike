@@ -817,6 +817,7 @@ dependencies = [
  "bevy_shader",
  "bevy_sprite",
  "bevy_sprite_render",
+ "bevy_state",
  "bevy_tasks",
  "bevy_text",
  "bevy_time",
@@ -1184,6 +1185,33 @@ dependencies = [
  "fixedbitset",
  "nonmax",
  "tracing",
+]
+
+[[package]]
+name = "bevy_state"
+version = "0.17.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "05e8556a55d548844fc067fac6657b62f8073c94bd7e13c86aa7573f4c2a67b3"
+dependencies = [
+ "bevy_app",
+ "bevy_ecs",
+ "bevy_platform",
+ "bevy_reflect",
+ "bevy_state_macros",
+ "bevy_utils",
+ "log",
+ "variadics_please",
+]
+
+[[package]]
+name = "bevy_state_macros"
+version = "0.17.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bcda45913b1d6470c6b751656e72fb3f25ca6b5b7b2ee055b294aaed1eb7e5ba"
+dependencies = [
+ "bevy_macro_utils",
+ "quote",
+ "syn",
 ]
 
 [[package]]
