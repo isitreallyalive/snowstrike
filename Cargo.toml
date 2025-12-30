@@ -45,6 +45,7 @@ features = [
     "bevy_text",
 
     # other
+    "multi_threaded",
     "bevy_state"
 ]
 
