@@ -36,4 +36,23 @@ fn main_menu(mut commands: Commands, assets: Res<AssetServer>) {
             ..default()
         }
     ));
+
+    // version
+    let font = assets.load("fonts/CountingApples.ttf");
+    commands.spawn((
+        Text::new(format!("snowstrike v{}", env!("CARGO_PKG_VERSION"))),
+        TextFont {
+            font,
+            font_size: 4.0,
+            ..default()
+        },
+        TextColor(Color::WHITE),
+        TextLayout::new_with_justify(Justify::Right),
+        Node {
+            position_type: PositionType::Absolute,
+            right: Val::Vw(1.0),
+            bottom: Val::Vh(1.0),
+            ..default()
+        }
+    ));
 }

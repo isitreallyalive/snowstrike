@@ -9,7 +9,7 @@
 
 ### thanks
 
-<!-- - [slime](https://slimeplease.artstation.com/) - ui font -->
+- [slime](https://slimeplease.artstation.com/) - ui font
 - [kenney](http://www.kenney.nl/) - button press sfx
 
 ## development
