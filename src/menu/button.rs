@@ -7,7 +7,7 @@ pub struct TextureButton {
     animation: AseAnimation,
     image: ImageNode,
     layer: RenderLayers,
-    ui: Button
+    ui: Button,
 }
 
 impl From<Handle<Aseprite>> for TextureButton {
@@ -20,12 +20,16 @@ impl From<Handle<Aseprite>> for TextureButton {
             },
             image: ImageNode::default(),
             layer: Layers::UI,
-            ui: Button
+            ui: Button,
         }
     }
 }
 
-pub fn process(mut query: Query<(&Interaction, &mut AseAnimation), Changed<Interaction>>, assets: Res<AssetServer>, mut commands: Commands) {
+pub fn process(
+    mut query: Query<(&Interaction, &mut AseAnimation), Changed<Interaction>>,
+    assets: Res<AssetServer>,
+    mut commands: Commands,
+) {
     for (interaction, mut animation) in query.iter_mut() {
         let tag = match *interaction {
             Interaction::Pressed => "Click",

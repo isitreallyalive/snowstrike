@@ -6,8 +6,8 @@ use snowstrike::Layers;
 
 pub fn plugin(app: &mut App) {
     app.add_plugins(FrameTimeDiagnosticsPlugin::default())
-            .add_systems(Startup, spawn)
-            .add_systems(Update, update);
+        .add_systems(Startup, spawn)
+        .add_systems(Update, update);
 }
 
 #[derive(Component)]
@@ -35,10 +35,7 @@ fn spawn(mut commands: Commands, server: Res<AssetServer>) {
     ));
 }
 
-fn update(
-    diagnostics: Res<DiagnosticsStore>,
-    mut query: Query<&mut Text, With<Fps>>,
-) {
+fn update(diagnostics: Res<DiagnosticsStore>, mut query: Query<&mut Text, With<Fps>>) {
     for mut text in &mut query {
         if let Some(fps) = diagnostics
             .get(&FrameTimeDiagnosticsPlugin::FPS)

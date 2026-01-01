@@ -1,10 +1,14 @@
 use bevy::{prelude::*, sprite_render::Material2dPlugin};
 use bevy_aseprite_ultra::prelude::*;
+use bevy_discord_rpc::DiscordRpcPlugin;
 use bevy_modern_pixel_camera::prelude::*;
 use snowstrike::GameState;
 
-mod fps;
+/// Discord application client ID for RPC
+const DISCORD_CLIENT_ID: u64 = 1454285370962219008;
+
 mod blur;
+mod fps;
 mod menu;
 mod setup;
 
@@ -34,6 +38,7 @@ fn main() {
 
             default_plugins
         })
+        .add_plugins(DiscordRpcPlugin::builder(DISCORD_CLIENT_ID).build())
         .add_plugins((PixelCameraPlugin, AsepriteUltraPlugin))
         .add_systems(Startup, (setup::icon, setup::camera, setup::draw_map))
         .add_plugins((

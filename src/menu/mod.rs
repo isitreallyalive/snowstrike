@@ -1,5 +1,6 @@
 use bevy::prelude::*;
 use bevy_aseprite_ultra::prelude::*;
+use bevy_discord_rpc::{Activity, Timestamps};
 use snowstrike::{GameState, Layers};
 
 use crate::menu::button::TextureButton;
@@ -11,7 +12,14 @@ pub fn plugin(app: &mut App) {
         .add_systems(Update, button::process.run_if(in_state(GameState::Menu)));
 }
 
-fn main_menu(mut commands: Commands, assets: Res<AssetServer>) {
+fn main_menu(mut commands: Commands, assets: Res<AssetServer>, mut activity: ResMut<Activity>) {
+    // set main menu activity
+    activity.update(|a| {
+        a.details = Some("On ice".to_string());
+        a.state = Some("In the main menus".to_string());
+        a.timestamps = Timestamps::now().ok();
+    });
+
     // title
     commands.spawn((
         AseAnimation {
@@ -34,7 +42,7 @@ fn main_menu(mut commands: Commands, assets: Res<AssetServer>) {
         Node {
             margin: UiRect::horizontal(Val::Auto).with_top(Val::Vh(30.)),
             ..default()
-        }
+        },
     ));
 
     // version
@@ -53,6 +61,6 @@ fn main_menu(mut commands: Commands, assets: Res<AssetServer>) {
             right: Val::Vw(1.0),
             bottom: Val::Vh(1.0),
             ..default()
-        }
+        },
     ));
 }

@@ -24,6 +24,7 @@ release = [
 ]
 
 [dependencies]
+bevy-discord-rpc = { git = "https://github.com/isitreallyalive/bevy-discord-rpc", rev = "a6fdcb9" }
 bevy_aseprite_ultra = "0.7.0"
 bevy_modern_pixel_camera = "0.4.0"
 image = { version = "0.25.9", default-features = false, features = ["png"] }
