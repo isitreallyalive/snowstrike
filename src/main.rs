@@ -22,6 +22,8 @@ fn main() {
                     .set(WindowPlugin {
                         primary_window: Some(Window {
                             title: "snowstrike".to_string(),
+                            present_mode: bevy::window::PresentMode::AutoNoVsync,
+                            visible: false,
                             ..default()
                         }),
                         ..default()
@@ -41,6 +43,7 @@ fn main() {
         .add_plugins(DiscordRpcPlugin::builder(DISCORD_CLIENT_ID).build())
         .add_plugins((PixelCameraPlugin, AsepriteUltraPlugin))
         .add_systems(Startup, (setup::icon, setup::camera, setup::draw_map))
+        .add_systems(Update, setup::make_visible)
         .add_plugins((
             Material2dPlugin::<blur::BlurMaterial>::default(),
             fps::plugin,

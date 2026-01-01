@@ -1,7 +1,7 @@
 #import bevy_sprite::mesh2d_vertex_output::VertexOutput
 
 const PI: f32 = 3.14159265359;
-const DARKNESS: f32 = 0.5;
+const DARKNESS: f32 = 0.3;
 
 @group(2) @binding(0) var u_texture: texture_2d<f32>;
 @group(2) @binding(1) var u_sampler: sampler;
