@@ -1,46 +1,21 @@
 use bevy::{
-    camera::RenderTarget, diagnostic::FrameCount, ecs::system::NonSendMarker, image::ImageSampler, prelude::*, render::render_resource::TextureFormat, winit::{WINIT_WINDOWS, WinitWindows}
+    camera::RenderTarget,
+    diagnostic::FrameCount,
+    image::ImageSampler,
+    prelude::*,
+    render::render_resource::TextureFormat,
 };
 use bevy_aseprite_ultra::prelude::*;
 use bevy_modern_pixel_camera::prelude::*;
-use image::{GenericImageView, ImageFormat};
 use snowstrike::{Layers, MAP_HEIGHT, MAP_WIDTH};
-use winit::window::Icon;
 
 use crate::blur::BlurMaterial;
-
-const ICON_DATA: &[u8] = include_bytes!("../assets/icon.png");
 
 pub fn make_visible(mut window: Single<&mut Window>, frames: Res<FrameCount>) {
     // try to hide the white!
     if frames.0 == 3 {
         window.visible = true;
     }
-}
-
-/// Set the window's icon
-pub fn icon(_: NonSendMarker, // needs to run on the main thread
-) -> Result<()> {
-    // load the icon
-    let (rgba, width, height) = {
-        let image = image::load_from_memory_with_format(ICON_DATA, ImageFormat::Png)?;
-        let (width, height) = image.dimensions();
-        let rgba = image.to_rgba8().into_raw();
-        (rgba, width, height)
-    };
-    let icon = Icon::from_rgba(rgba, width, height)?;
-
-    // set the icon for all windows
-    WINIT_WINDOWS.with_borrow_mut(|WinitWindows { windows, .. }| {
-        if windows.is_empty() {
-            return;
-        }
-        for window in windows.values() {
-            window.set_window_icon(Some(icon.clone()));
-        }
-    });
-
-    Ok(())
 }
 
 #[derive(Component)]
@@ -64,7 +39,8 @@ pub fn camera(
     );
 
     // render all game content to an external texture
-    let mut image = Image::new_target_texture(MAP_WIDTH, MAP_HEIGHT, TextureFormat::bevy_default(), None);
+    let mut image =
+        Image::new_target_texture(MAP_WIDTH, MAP_HEIGHT, TextureFormat::bevy_default(), None);
     image.sampler = ImageSampler::linear();
     let image_handle = images.add(image);
 
