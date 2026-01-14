@@ -1,22 +1,37 @@
 use bevy::{
-    prelude::*, render::render_resource::AsBindGroup, shader::ShaderRef, sprite_render::Material2d,
+    core_pipeline::{core_2d::graph::Node2d, fullscreen_material::FullscreenMaterial},
+    prelude::*,
+    render::{
+        extract_component::ExtractComponent, render_graph::RenderLabel, render_resource::ShaderType,
+    },
 };
 
-#[derive(Clone, AsBindGroup, Asset, TypePath)]
-pub struct BlurMaterial {
-    #[texture(0)]
-    #[sampler(1)]
-    pub texture: Handle<Image>,
-    #[uniform(2)]
-    pub strength: f32,
+#[derive(Component, ExtractComponent, Clone, Copy, ShaderType)]
+pub struct BlurEffect {
+    strength: f32,
+    darkness: f32
 }
 
-impl BlurMaterial {
-    pub const DEFAULT_STRENGTH: f32 = 1.8;
+impl Default for BlurEffect {
+    fn default() -> Self {
+        Self {
+            strength: 1.8,
+            darkness: 0.3,
+        }
+    }
 }
 
-impl Material2d for BlurMaterial {
-    fn fragment_shader() -> ShaderRef {
+impl FullscreenMaterial for BlurEffect {
+    fn fragment_shader() -> bevy::shader::ShaderRef {
         "shader/blur.wgsl".into()
+    }
+
+    fn node_edges() -> Vec<bevy::render::render_graph::InternedRenderLabel> {
+        vec![
+            Node2d::Tonemapping.intern(),
+            // post-processing
+            Self::node_label().intern(),
+            Node2d::EndMainPassPostProcessing.intern(),
+        ]
     }
 }

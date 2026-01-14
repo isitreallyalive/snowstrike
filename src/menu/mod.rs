@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 use bevy_aseprite_ultra::prelude::*;
 use bevy_discord_rpc::{Activity, Timestamps};
-use snowstrike::{GameState, Layers};
+use snowstrike::GameState;
 
 use crate::menu::button::TextureButton;
 
@@ -31,7 +31,6 @@ fn main_menu(mut commands: Commands, assets: Res<AssetServer>, mut activity: Res
             margin: UiRect::horizontal(Val::Auto).with_top(Val::Vh(10.)),
             ..default()
         },
-        Layers::UI,
     ));
 
     // play button

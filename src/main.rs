@@ -1,4 +1,4 @@
-use bevy::{prelude::*, sprite_render::Material2dPlugin};
+use bevy::{core_pipeline::fullscreen_material::FullscreenMaterialPlugin, prelude::*};
 use bevy_aseprite_ultra::prelude::*;
 use bevy_discord_rpc::prelude::*;
 use bevy_icon::prelude::*;
@@ -45,14 +45,14 @@ fn main() -> Result<()> {
             default_plugins
         })
         .add_plugins(DiscordRpcPlugin::builder(DISCORD_CLIENT_ID).build())
-        .add_plugins(BevyIconPlugin::new(
-            Icon::from(image::load_from_memory(ICON_DATA)?)
-        ))
+        .add_plugins(BevyIconPlugin::new(Icon::from(image::load_from_memory(
+            ICON_DATA,
+        )?)))
         .add_plugins((PixelCameraPlugin, AsepriteUltraPlugin))
         .add_systems(Startup, (setup::camera, setup::draw_map))
         .add_systems(Update, setup::make_visible)
         .add_plugins((
-            Material2dPlugin::<blur::BlurMaterial>::default(),
+            FullscreenMaterialPlugin::<blur::BlurEffect>::default(),
             fps::plugin,
             menu::plugin,
         ))

@@ -2,7 +2,6 @@ use bevy::{
     diagnostic::{DiagnosticsStore, FrameTimeDiagnosticsPlugin},
     prelude::*,
 };
-use snowstrike::Layers;
 
 pub fn plugin(app: &mut App) {
     app.add_plugins(FrameTimeDiagnosticsPlugin::default())
@@ -31,7 +30,6 @@ fn spawn(mut commands: Commands, server: Res<AssetServer>) {
             ..default()
         },
         Fps,
-        Layers::UI,
     ));
 }
 

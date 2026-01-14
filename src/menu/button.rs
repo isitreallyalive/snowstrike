@@ -1,12 +1,10 @@
-use bevy::{camera::visibility::RenderLayers, prelude::*, ui::widget::Button};
+use bevy::{prelude::*, ui::widget::Button};
 use bevy_aseprite_ultra::prelude::*;
-use snowstrike::Layers;
 
 #[derive(Bundle)]
 pub struct TextureButton {
     animation: AseAnimation,
     image: ImageNode,
-    layer: RenderLayers,
     ui: Button,
 }
 
@@ -19,7 +17,6 @@ impl From<Handle<Aseprite>> for TextureButton {
                 ..default()
             },
             image: ImageNode::default(),
-            layer: Layers::UI,
             ui: Button,
         }
     }
