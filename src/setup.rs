@@ -64,7 +64,7 @@ pub fn camera(
     );
 
     // render all game content to an external texture
-    let mut image = Image::new_target_texture(MAP_WIDTH, MAP_HEIGHT, TextureFormat::bevy_default());
+    let mut image = Image::new_target_texture(MAP_WIDTH, MAP_HEIGHT, TextureFormat::bevy_default(), None);
     image.sampler = ImageSampler::linear();
     let image_handle = images.add(image);
 
@@ -72,10 +72,10 @@ pub fn camera(
         pixel_perfect.clone(),
         Camera {
             order: -1, // render first
-            target: RenderTarget::from(image_handle.clone()),
             clear_color: Color::WHITE.into(),
             ..default()
         },
+        RenderTarget::from(image_handle.clone()),
         Layers::GAME,
     ));
 

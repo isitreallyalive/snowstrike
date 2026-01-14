@@ -24,37 +24,14 @@ release = [
 ]
 
 [dependencies]
-bevy-discord-rpc = { git = "https://github.com/isitreallyalive/bevy-discord-rpc", rev = "4826abc" }
-bevy_aseprite_ultra = "0.7.0"
-bevy_modern_pixel_camera = "0.4.0"
+bevy = { version = "0.18.0", default-features = false, features = ["2d"] }
+bevy-discord-rpc = { git = "https://github.com/isitreallyalive/bevy-discord-rpc", rev = "0914143" }
+# todo: change these back to upstream once pr is accepted
+bevy_aseprite_ultra = { git = "https://github.com/isitreallyalive/bevy_aseprite_ultra", rev = "1c1bbdb" }
+bevy_modern_pixel_camera = { git = "https://github.com/isitreallyalive/bevy_modern_pixel_camera", rev = "f38d599" }
 image = { version = "0.25.9", default-features = false, features = ["png"] }
 log = { version = "0.4.29", optional = true }
 winit = { version = "0.30.12", default-features = false }
-
-[dependencies.bevy]
-version = "0.17.3"
-default-features = false
-features = [
-    # graphics
-    "bevy_winit",
-    "bevy_sprite",
-    "x11",
-    "wayland",
-
-    # audio
-    "bevy_audio",
-    "vorbis",
-
-    # ui
-    "bevy_ui",
-    "bevy_text",
-
-    # other
-    "multi_threaded",
-    "bevy_state"
-]
-
-# build profiles
 
 [profile.dev]
 opt-level = 1
