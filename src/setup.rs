@@ -22,7 +22,7 @@ pub fn camera(mut commands: Commands) {
         },
         PixelViewport,
         WithUiScaling,
-        BlurEffect::default()
+        BlurEffect::default(),
     ));
 }
 

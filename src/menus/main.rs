@@ -1,18 +1,23 @@
 use bevy::prelude::*;
 use bevy_aseprite_ultra::prelude::*;
 use bevy_discord_rpc::{Activity, Timestamps};
-use snowstrike::GameState;
-
-use crate::menu::button::TextureButton;
-
-mod button;
+use snowstrike::{
+    GameState,
+    button::{ButtonPlugin, TextureButton},
+};
 
 pub fn plugin(app: &mut App) {
-    app.add_systems(OnEnter(GameState::Menu), main_menu)
-        .add_systems(Update, button::process.run_if(in_state(GameState::Menu)));
+    app.add_plugins(ButtonPlugin::<MainMenuButton, _>::new(GameState::Menu))
+        .add_systems(OnEnter(GameState::Menu), draw)
+        .add_systems(Update, button_press.run_if(in_state(GameState::Menu)));
 }
 
-fn main_menu(mut commands: Commands, assets: Res<AssetServer>, mut activity: ResMut<Activity>) {
+#[derive(Component, Message, Clone, Copy)]
+pub enum MainMenuButton {
+    Play,
+}
+
+fn draw(mut commands: Commands, assets: Res<AssetServer>, mut activity: ResMut<Activity>) {
     // set main menu activity
     activity.update(|a| {
         a.details = Some("On ice".to_string());
@@ -34,10 +39,8 @@ fn main_menu(mut commands: Commands, assets: Res<AssetServer>, mut activity: Res
     ));
 
     // play button
-    let play_button = assets.load("menu/play.aseprite");
-
     commands.spawn((
-        TextureButton::from(play_button),
+        TextureButton::new(assets.load("menu/play.aseprite"), MainMenuButton::Play),
         Node {
             margin: UiRect::horizontal(Val::Auto).with_top(Val::Vh(30.)),
             ..default()
@@ -62,4 +65,14 @@ fn main_menu(mut commands: Commands, assets: Res<AssetServer>, mut activity: Res
             ..default()
         },
     ));
+}
+
+fn button_press(mut buttons: MessageReader<MainMenuButton>) {
+    for button in buttons.read() {
+        match button {
+            MainMenuButton::Play => {
+                println!("Start game!");
+            }
+        }
+    }
 }

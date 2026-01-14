@@ -13,7 +13,7 @@ const ICON_DATA: &[u8] = include_bytes!("../assets/icon.png");
 
 mod blur;
 mod fps;
-mod menu;
+mod menus;
 mod setup;
 
 fn main() -> Result<()> {
@@ -54,7 +54,7 @@ fn main() -> Result<()> {
         .add_plugins((
             FullscreenMaterialPlugin::<blur::BlurEffect>::default(),
             fps::plugin,
-            menu::plugin,
+            menus::plugin,
         ))
         .init_asset::<AudioSource>()
         .init_state::<GameState>()

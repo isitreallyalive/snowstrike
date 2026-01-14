@@ -9,7 +9,7 @@ use bevy::{
 #[derive(Component, ExtractComponent, Clone, Copy, ShaderType)]
 pub struct BlurEffect {
     strength: f32,
-    darkness: f32
+    darkness: f32,
 }
 
 impl Default for BlurEffect {
