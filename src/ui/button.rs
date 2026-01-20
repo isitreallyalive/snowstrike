@@ -5,6 +5,7 @@ use bevy_aseprite_ultra::prelude::*;
 
 pub trait Button = Component + Message + Clone + Copy;
 
+/// A button with an animated texture.
 #[derive(Bundle)]
 pub struct TextureButton<B: Button> {
     animation: AseAnimation,
@@ -28,7 +29,8 @@ impl<B: Button> TextureButton<B> {
     }
 }
 
-fn animate<B: Button>(
+/// Update button animations and handle clicks.
+fn process<B: Button>(
     mut query: Query<(&Interaction, &mut AseAnimation, &B), Changed<Interaction>>,
     assets: Res<AssetServer>,
     mut commands: Commands,
@@ -66,6 +68,7 @@ impl<B: Button, S: States + Copy> ButtonPlugin<B, S> {
 
 impl<B: Button, S: States + Copy> Plugin for ButtonPlugin<B, S> {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, animate::<B>.run_if(in_state(self.state.clone()))).add_message::<B>();
+        app.add_systems(Update, process::<B>.run_if(in_state(self.state.clone())))
+            .add_message::<B>();
     }
 }

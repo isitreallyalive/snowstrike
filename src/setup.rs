@@ -1,33 +1,34 @@
 use bevy::{diagnostic::FrameCount, prelude::*};
 use bevy_aseprite_ultra::prelude::*;
 use bevy_modern_pixel_camera::prelude::*;
-use snowstrike::{MAP_HEIGHT, MAP_WIDTH};
 
 use crate::blur::BlurEffect;
 
+const MAP_ZOOM: PixelZoom = PixelZoom::FitSize {
+    width: 207,
+    height: 151,
+};
+
+/// Make the window visible after a few frames have passed to avoid seeing a white flash.
 pub fn make_visible(mut window: Single<&mut Window>, frames: Res<FrameCount>) {
-    // try to hide the white!
     if frames.0 == 3 {
         window.visible = true;
     }
 }
 
-pub fn camera(mut commands: Commands) {
+/// Spawn the main camera and draw the map background.
+pub fn camera(mut commands: Commands, server: Res<AssetServer>) {
+    // spawn camera
     commands.spawn((
         Camera2d,
         Msaa::Off,
-        PixelZoom::FitSize {
-            width: MAP_WIDTH as i32,
-            height: MAP_HEIGHT as i32,
-        },
+        MAP_ZOOM,
         PixelViewport,
         WithUiScaling,
         BlurEffect::default(),
     ));
-}
 
-/// Draw the map in the background
-pub fn draw_map(mut commands: Commands, server: Res<AssetServer>) {
+    // draw map
     commands.spawn((
         AseAnimation {
             aseprite: server.load("map/map.aseprite"),

@@ -17,19 +17,15 @@ dev = [
 release = [
     # reduce log levels for smaller binary size
     "log/max_level_debug",
-    "log/release_max_level_warn",
-    # asset optimisation
-    "bevy/asset_processor",
-    "bevy_aseprite_ultra/asset_processing"
+    "log/release_max_level_warn"
 ]
 
 [dependencies]
 bevy = { version = "0.18.0", default-features = false, features = ["2d"] }
+bevy_aseprite_ultra = { git = "https://github.com/Lommix/bevy_aseprite_ultra", rev = "780c0f7" }
 bevy-discord-rpc = { git = "https://github.com/isitreallyalive/bevy-discord-rpc", rev = "c5a11ac" }
 bevy-icon = { git = "https://github.com/isitreallyalive/bevy-icon", rev = "b0b4bd9", features = ["image"] }
-# todo: change these back to upstream once pr is accepted
-bevy_aseprite_ultra = { git = "https://github.com/isitreallyalive/bevy_aseprite_ultra", rev = "1c1bbdb" }
-bevy_modern_pixel_camera = { git = "https://github.com/isitreallyalive/bevy_modern_pixel_camera", rev = "f38d599" }
+bevy_modern_pixel_camera = "0.5.0"
 image = { version = "0.25.9", default-features = false, features = ["png"] }
 log = { version = "0.4.29", optional = true }
 

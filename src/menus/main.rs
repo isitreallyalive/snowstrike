@@ -3,19 +3,26 @@ use bevy_aseprite_ultra::prelude::*;
 use bevy_discord_rpc::{Activity, Timestamps};
 use snowstrike::{
     GameState,
-    button::{ButtonPlugin, TextureButton},
+    ui::{
+        self,
+        button::{ButtonPlugin, TextureButton},
+    },
 };
 
 pub fn plugin(app: &mut App) {
     app.add_plugins(ButtonPlugin::<MainMenuButton, _>::new(GameState::Menu))
         .add_systems(OnEnter(GameState::Menu), draw)
+        .add_systems(OnExit(GameState::Menu), ui::clear::<MainMenuUi>)
         .add_systems(Update, button_press.run_if(in_state(GameState::Menu)));
 }
 
 #[derive(Component, Message, Clone, Copy)]
-pub enum MainMenuButton {
+enum MainMenuButton {
     Play,
 }
+
+#[derive(Component)]
+struct MainMenuUi;
 
 fn draw(mut commands: Commands, assets: Res<AssetServer>, mut activity: ResMut<Activity>) {
     // set main menu activity
@@ -36,6 +43,7 @@ fn draw(mut commands: Commands, assets: Res<AssetServer>, mut activity: ResMut<A
             margin: UiRect::horizontal(Val::Auto).with_top(Val::Vh(10.)),
             ..default()
         },
+        MainMenuUi,
     ));
 
     // play button
@@ -45,6 +53,7 @@ fn draw(mut commands: Commands, assets: Res<AssetServer>, mut activity: ResMut<A
             margin: UiRect::horizontal(Val::Auto).with_top(Val::Vh(30.)),
             ..default()
         },
+        MainMenuUi,
     ));
 
     // version
@@ -64,15 +73,17 @@ fn draw(mut commands: Commands, assets: Res<AssetServer>, mut activity: ResMut<A
             bottom: Val::Vh(1.0),
             ..default()
         },
+        MainMenuUi,
     ));
 }
 
-fn button_press(mut buttons: MessageReader<MainMenuButton>) {
+fn button_press(
+    mut buttons: MessageReader<MainMenuButton>,
+    mut state: ResMut<NextState<GameState>>,
+) {
     for button in buttons.read() {
         match button {
-            MainMenuButton::Play => {
-                println!("Start game!");
-            }
+            MainMenuButton::Play => state.set(GameState::Playing),
         }
     }
 }
