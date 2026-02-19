@@ -1,5 +1,6 @@
 # adapted from: https://github.com/bevyengine/bevy/blob/c822005cf70c8f76e294c4c53d4edc207a262025/.cargo/config_fast_builds.toml
 
+# use mold on linux
 [target.x86_64-unknown-linux-gnu]
 linker = "clang"
 rustflags = [

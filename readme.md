@@ -40,3 +40,5 @@ sudo apt install mold clang # debian/ubuntu
 sudo dnf install mold clang # fedora
 sudo pacman -S mold clang   # arch
 ```
+
+<sub>note: this is automatically installed if you use <a href="https://mise.jdx.dev/">mise-en-place</a>.</sub>

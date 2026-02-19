@@ -31,9 +31,10 @@ pub fn camera(mut commands: Commands, server: Res<AssetServer>) {
     // draw map
     commands.spawn((
         AseAnimation {
-            aseprite: server.load("map/map.aseprite"),
+            aseprite: server.load("sprites/map.aseprite"),
             ..default()
         },
         Sprite::default(),
+        Transform::from_xyz(0., 0., -1.), // draw behind everything else
     ));
 }

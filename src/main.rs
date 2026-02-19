@@ -16,6 +16,7 @@ const ICON_DATA: &[u8] = include_bytes!("../assets/icon.png");
 mod blur;
 mod fps;
 mod menus;
+mod player;
 mod setup;
 
 fn main() -> Result<()> {
@@ -40,7 +41,7 @@ fn main() -> Result<()> {
         .add_plugins((PixelCameraPlugin, AsepriteUltraPlugin))
         .add_systems(Startup, setup::camera)
         .add_systems(Update, setup::make_visible)
-        .add_plugins((fps::plugin, menus::plugin, blur::plugin))
+        .add_plugins((fps::plugin, menus::plugin, blur::plugin, player::plugin))
         .init_asset::<AudioSource>()
         .init_state::<snowstrike::GameState>()
         .run();

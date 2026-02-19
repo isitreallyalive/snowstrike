@@ -20,7 +20,6 @@ impl<B: Button> TextureButton<B> {
             animation: AseAnimation {
                 aseprite: animation,
                 animation: Animation::tag("Idle"),
-                ..default()
             },
             image: ImageNode::default(),
             ui: UiButton,
@@ -68,7 +67,7 @@ impl<B: Button, S: States + Copy> ButtonPlugin<B, S> {
 
 impl<B: Button, S: States + Copy> Plugin for ButtonPlugin<B, S> {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, process::<B>.run_if(in_state(self.state.clone())))
+        app.add_systems(Update, process::<B>.run_if(in_state(self.state)))
             .add_message::<B>();
     }
 }
